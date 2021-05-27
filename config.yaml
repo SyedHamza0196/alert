@@ -1,0 +1,17 @@
+[sender]
+email : hamzasyed001230@gmail.com
+password : mkwnuqoeztdnloqp
+host : smtp.gmail.com
+port : 465
+
+[reciever]
+email_list : hamzasyed001230@gmail.com,syed.hamza@aletheia-ai.tech,mubeen.akhter.100@gmail.com
+
+[time]
+recording_ending_time : none
+recording_time_delay : none
+alert_start_time : none
+alert_stop_time : none
+
+[rtsp]
+link : rtsp://admin:abc12345@192.168.100.3
