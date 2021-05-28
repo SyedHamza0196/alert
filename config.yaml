@@ -1,11 +1,11 @@
 [sender]
-email : hamzasyed001230@gmail.com
-password : mkwnuqoeztdnloqp
+email : #add sender email here
+password : #add APP pass here
 host : smtp.gmail.com
 port : 465
 
 [reciever]
-email_list : hamzasyed001230@gmail.com,syed.hamza@aletheia-ai.tech,mubeen.akhter.100@gmail.com
+email_list : #add reciever email/s here
 
 [time]
 recording_ending_time : 1800
@@ -14,4 +14,4 @@ alert_start_time : none
 alert_stop_time : none
 
 [rtsp]
-link : rtsp://admin:abc12345@192.168.100.3
+link : #add rtsp link here
