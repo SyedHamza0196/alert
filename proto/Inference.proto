@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package detections;
+
+message DetectorResults {
+    uint64 timestamp = 1;
+    string cam = 2;
+    int32 image_width = 3;
+    int32 image_height = 4; 
+    repeated BBox bounds = 5;
+    cvMat frame = 6;
+    FrameCount count=7;
+}
+message FrameCount {
+    int32 inCount=1;
+    int32 outCount=2;
+}
+
+message BBox {
+  float x = 1;
+  float y = 2;
+  float width = 3;
+  float height = 4;
+  float score = 5;
+  string label = 6;
+  int32 classid = 7;
+  string classname = 8;
+  float trackid = 9;
+  Landmarks landmarks = 10;
+}
+
+message Landmarks {
+    float lefteyeX = 1;
+    float lefteyeY = 2;
+    float righteyeX = 3;
+    float righteyeY = 4;
+    float noseX = 5;
+    float noseY = 6;
+    float lipleftX = 7;
+    float lipleftY = 8;
+    float liprightX = 9;
+    float liprightY = 10; 
+}
+message cvMat {
+    int32 rows = 1;
+    int32 cols = 2;
+    int32 elt_type = 3;          // element type of cv::Mat
+    int32 elt_size = 4;          // element size
+    bytes mat_data = 5;          // byte data of image
+}

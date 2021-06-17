@@ -1,17 +1,6 @@
-[sender]
-email : #add sender email here
-password : #add APP pass here
-host : smtp.gmail.com
-port : 465
-
-[reciever]
-email_list : #add reciever email/s here
-
-[time]
-recording_ending_time : 1800
-recording_time_delay : none
-alert_start_time : none
-alert_stop_time : none
-
-[rtsp]
-link : #add rtsp link here
+recorder_in_channel: "DetectorOutQueue"
+recorder_out_channel: "RecorderOutQueue"
+rtsp_for_recording: "rtsp://hamza:admin123@192.168.100.86:8554"
+detectionClassid_for_recording: 1 #(0=plate, 1=truck)
+detectionLabel_for_recording: "truck"
+recording_type: ".mp4" #.mp4 .avi

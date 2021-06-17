@@ -1,38 +1,42 @@
+from cfgreader import config as config
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import configparser
 
-config = configparser.ConfigParser()
-config.read("./config.yaml")
+x = config.email
+print(x)
 
-sEmail = config['sender']['email']
-sPass = config['sender']['password']
-sHost = config['sender']['host']
-sPort = config['sender']['port']
+# config = configparser.ConfigParser()
+# config.read("./config.yaml")
 
-rEmails = config['reciever']['email_list']
-rEmails = rEmails.split(',')
+# sEmail = config['sender']['email']
+# sPass = config['sender']['password']
+# sHost = config['sender']['host']
+# sPort = config['sender']['port']
 
-# set up the SMTP server
-s = smtplib.SMTP_SSL(host=sHost, port=int(sPort))
-s.login(sEmail,sPass)
+# rEmails = config['reciever']['email_list']
+# rEmails = rEmails.split(',')
 
-for email in rEmails:
-    #send mail
-    msg = MIMEMultipart()       # create a message
+# # set up the SMTP server
+# s = smtplib.SMTP_SSL(host=sHost, port=int(sPort))
+# s.login(sEmail,sPass)
 
-    message = "this is a alert test part 2"
+# for email in rEmails:
+#     #send mail
+#     msg = MIMEMultipart()       # create a message
 
-    # setup the parameters of the message
-    msg['From']=sEmail
-    msg['To']=email
-    msg['Subject']="ALERT TEST"
+#     message = "this is a alert test part 2"
 
-    # add in the message body
-    msg.attach(MIMEText(message, 'plain'))
+#     # setup the parameters of the message
+#     msg['From']=sEmail
+#     msg['To']=email
+#     msg['Subject']="ALERT TEST"
 
-    # send the message via the server set up earlier.
-    s.send_message(msg)
+#     # add in the message body
+#     msg.attach(MIMEText(message, 'plain'))
 
-    del msg
+#     # send the message via the server set up earlier.
+#     s.send_message(msg)
+
+#     del msg
