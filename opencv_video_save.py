@@ -1,7 +1,6 @@
 from cfgreader import config as config
+from PIL import Image
 import time
-from queue import Queue
-from threading import Thread
 import redis
 from datetime import datetime
 import cv2
@@ -10,6 +9,11 @@ from datetime import datetime,date
 import time
 import proto.Inference_pb2 as inference
 import logging as logger
+from imageio import imread
+import io
+import base64
+from queue import Queue
+from threading import Thread
 
 def run(client):
   while(1):
@@ -34,34 +38,26 @@ def run(client):
     #------------------ redis ------------------------------------
     
     for i, bound in enumerate(track_result.bounds):
-      classD = config.detectionClassid_for_recording
-      labelD = config.detectionLabel_for_recording
-      if bound.label == labelD or bound.classid == classD:
+      # classD = config.Classid_for_recording
+      # labelD = config.Label_for_recording
+      if bound.label == config.Label_for_recording or bound.classid == config.Classid_for_recording:
         start_time = time.time()
         current_time = datetime.now().strftime("%H%M%S")
         current_date = date.today().strftime("%d%m%Y")
-        rtsp = config.rtsp_for_recording
         
-        cap = cv2.VideoCapture(rtsp) #rtsp
-
-        if (cap.isOpened() == False): 
-          logger.error("Unable to read camera feed")
-
-        frame_width = int(cap.get(3))#1920
-        frame_height = int(cap.get(4))#1080
-        rType = config.recording_type
-
-        out = cv2.VideoWriter(current_time+'_'+current_date+rType,cv2.VideoWriter_fourcc('M','J','P','G'), 25, (frame_width,frame_height))
-
-        while(True):
-            ret, frame = cap.read()
-            
-            if ret == True and int(time.time()-start_time) == 3600: # and int(time.time()-start_time) == recording_ending_time
-                out.write(frame)
-                # if cv2.waitKey(1) & 0xFF == ord('q'):
-                #     break
-            else:
-                break
+        # img BGR
+        img = cv2.imdecode(np.frombuffer(track_result.frame.mat_data, np.uint8), cv2.IMREAD_COLOR)
+        # covert BRG to RGB
+        img_np = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
+        #numpy to Image
+        img_showable = Image.fromarray(img_np)
+        # frame = imread(io.BytesIO(base64.b64decode(track_result.frame.mat_data.decode())))
+        
+        # frame_width = int(cap.get(3))#1920
+        # frame_height = int(cap.get(4))#1080
+        # rType = config.recording_type
+        out = cv2.VideoWriter(current_time+'_'+current_date+config.recording_type,cv2.VideoWriter_fourcc(*'XVID'), 25, (img_showable.shape[1],img_showable.shape[0])) #'M','J','P','G'   #*'XVID' #*'MPEG'
+        out.write(img_showable)
       
 def main():
   run(redis.Redis(host=config.redis_host, port=config.redis_port, db=0))

@@ -1,6 +1,5 @@
 recorder_in_channel: "DetectorOutQueue"
 recorder_out_channel: "RecorderOutQueue"
-rtsp_for_recording: "rtsp://hamza:admin123@192.168.100.86:8554"
-detectionClassid_for_recording: 1 #(0=plate, 1=truck)
-detectionLabel_for_recording: "truck"
+Classid_for_recording: 1 #(0=plate, 1=truck)
+Label_for_recording: "truck"
 recording_type: ".mp4" #.mp4 .avi

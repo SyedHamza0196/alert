@@ -10,6 +10,8 @@ RUN pip install --prefix=/install\
     # shapely \
     # requests \
     # pillow \
+    ffmpeg \
+    imageio \
     opencv-python==4.5.1.48 \
     numpy==1.19 \
     pyyaml 
@@ -26,5 +28,6 @@ RUN apt-get update && apt-get install -y python3-opencv
 
 ADD proto/ ./proto/
 ADD opencv_video_save.py ./
+ADD cfgreader.py ./
 
-CMD [ "python3", "heatmapService.py" ]
+CMD [ "python3", "opencv_video_save.py" ]
